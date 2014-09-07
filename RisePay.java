@@ -1,3 +1,7 @@
+
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,8 +18,9 @@ public class RisePay {
     private String password;
     private final String url = "https://gateway1.risepay.com/ws/transact.asmx/ProcessCreditCard?";
     
-    public void auth(){
-        
+    public void auth(Map<String, Object> data){
+        data.put("TransType", "Auth");
+        System.out.println(data);
     }
     
     public void prepareData(){
@@ -24,5 +29,6 @@ public class RisePay {
     public void post(){
         
     }
+
     
 }

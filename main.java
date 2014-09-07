@@ -26,9 +26,9 @@ public class main {
         data.put("Amount", 10);
         data.put("CVNum", "678");
         
+        risepay.auth(data);
         
         
-        System.out.println(data);
     }
     
 }
