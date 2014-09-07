@@ -27,7 +27,6 @@ public class main {
         data.put("Amount", 10);
         data.put("CVNum", "678");
         data.put("Customer", "JR");
-        data.put("Mira", "JR");
         
         System.out.println(risepay.auth(data));
          
