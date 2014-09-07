@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -14,9 +15,9 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
-        RisePay risepay = new RisePay("demo","demo");
+        RisePay risepay = new RisePay("jhonndev","U0H464z4");
         
         Map<String, Object> data = new HashMap<String, Object>();
         
@@ -26,7 +27,8 @@ public class main {
         data.put("Amount", 10);
         data.put("CVNum", "678");
         
-         System.out.println(risepay.auth(data));
+        risepay.auth(data);
+         
         
         
     }
