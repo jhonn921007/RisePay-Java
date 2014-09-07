@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.risepay;
+
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +31,10 @@ public class main {
         data.put("CVNum", "678");
         data.put("Customer", "JR");
         
-        System.out.println(risepay.auth(data));
+        //System.out.println(risepay.auth(data));
+        
+        risepay.auth(data);
+        
          
         
         
