@@ -1,6 +1,5 @@
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /*
@@ -17,53 +16,31 @@ public class RisePay {
     
     private String username;
     private String password;
-    private final String url = "https://gateway1.risepay.com/ws/transact.asmx/ProcessCreditCard?";
+    private String url = "https://gateway1.risepay.com/ws/transact.asmx/ProcessCreditCard?";
+
     
-    public void auth(Map<String, Object> data){
+    public RisePay(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+    
+    public void getGatewayUrl(String url){
+        this.url = url;
+    }
+    
+    public Map<String, Object> auth(Map<String, Object> data){
         data.put("TransType", "Auth");
-        System.out.println(data);
+        return prepareData(data);
     }
     
-    public void prepareData(){
-        
+    public Map<String, Object> prepareData(Map<String, Object> data){
+        data.put("UserName", username);
+        data.put("Password", password);
+        return post(data);
     }
-    public void post(){
-        
+    public Map<String, Object> post(Map<String, Object> data){
+        return data;
     }
-public void test(){
-    Map opt = new HashMap();
-    opt.put("NameOnCard","Kamel");
-    opt.put("CardNum", "5149612222222229");
-    opt.put("ExpDate", "1214");
-    opt.put("Amount", "10");
-    opt.put("CVNum", "734");
-    opt.put("InvNum", "ABD42");
-    opt.put("Zip", "36124");
-    opt.put("Street", "Gran Vio 25");
-    sale(opt);
-    }     
+
     
-   public void sale(Map opt){ 
-        Map form = new HashMap();
-        form.put("UserName",username);
-        form.put("Password",password);
-        form.put("TransType","SALE");
-        form.put("NameOnCard", opt.get(0).toString());
-        form.put("CardNum", opt.get(1).toString());
-        form.put("ExpDate", opt.get(2).toString());
-        form.put("Amount", opt.get(3).toString());
-        form.put("MagData","");
-        form.put("PNRef","");
-        form.put("ExtData", "");     
-        form.put("CVNum",opt.get(4).toString());
-        form.put("InvNum",opt.get(5).toString());
-        form.put("Zip",opt.get(6).toString());
-        form.put("Street",opt.get(7).toString());
-        
-        for (Iterator it = form.keySet().iterator(); it.hasNext();) {
-            Object key = it.next();
-            System.out.println("key: " + key + "|  value: " + form.get(key));
-        }
-    
-        
-   }}
+}

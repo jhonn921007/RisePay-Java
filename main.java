@@ -16,7 +16,7 @@ public class main {
      */
     public static void main(String[] args) {
         
-        RisePay risepay = new RisePay();
+        RisePay risepay = new RisePay("demo","demo");
         
         Map<String, Object> data = new HashMap<String, Object>();
         
@@ -26,7 +26,7 @@ public class main {
         data.put("Amount", 10);
         data.put("CVNum", "678");
         
-        risepay.auth(data);
+         System.out.println(risepay.auth(data));
         
         
     }
