@@ -4,6 +4,8 @@ import java.util.*;
  
 import java.util.HashMap;
 import java.util.Map;
+import org.javalite.http.Http;
+import org.javalite.http.Post;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -45,11 +47,12 @@ public class RisePay {
     public Map<String, Object> prepareData(Map<String, Object> data) throws Exception{
         data.put("UserName", username);
         data.put("Password", password);
+        post(data);
+         
         return data;
     }
-    public void sendPost(Map<String, Object> data) throws Exception{
-        URL url = new URL(this.url);
-  
+    public void post(Map<String, Object> data) throws Exception{
+       
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : data.entrySet()) {
             if (postData.length() != 0) postData.append('&');
@@ -57,18 +60,12 @@ public class RisePay {
             postData.append('=');
             postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
         }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        
+       String content = String.valueOf(postData);
+       Post post = Http.post(url, content).header("Content-Type", "application/x-www-form-urlencoded");
+   
+        System.out.println(post.text());
 
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-        conn.setDoOutput(true);
-        conn.getOutputStream().write(postDataBytes);
-
-        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        for (int c; (c = in.read()) >= 0; System.out.print((char)c));
-       
     }
 
     
