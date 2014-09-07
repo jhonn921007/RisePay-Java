@@ -26,8 +26,10 @@ public class main {
         data.put("ExpDate", "1214");
         data.put("Amount", 10);
         data.put("CVNum", "678");
+        data.put("Customer", "JR");
+        data.put("Mira", "JR");
         
-        risepay.auth(data);
+        System.out.println(risepay.auth(data));
          
         
         

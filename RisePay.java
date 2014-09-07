@@ -22,7 +22,7 @@ public class RisePay {
     private String username;
     private String password;
     private String url = "https://gateway1.risepay.com/ws/transact.asmx/ProcessCreditCard?";
-    String [] whitelist = {"TransType","NameOnCard", "CardNum", "ExpDate", "CVNum", "Amount", "InvNum", "Zip", "Street","City", "MagData","PNRef", "UserName", "Password"};
+    String [] whitelist = {"TransType", "NameOnCard", "ExtData", "CardNum", "ExpDate", "CVNum", "Amount", "InvNum", "Zip", "Street","City", "MagData","PNRef", "UserName", "Password"};
     String [] amountFields = {"Amount","TipAmt","TaxAmt"};
     
     public RisePay(String username, String password){
@@ -34,24 +34,50 @@ public class RisePay {
         this.url = url;
     }
     
-    public Map<String, Object> auth(Map<String, Object> data) throws Exception{
+    public String auth(Map<String, Object> data) throws Exception{
         data.put("TransType", "Auth");
         return prepareData(data);
     }
     
-    public Map<String, Object> sale(Map<String, Object> data)  throws Exception{
+    public String sale(Map<String, Object> data)  throws Exception{
         data.put("TransType", "Sale");
         return prepareData(data);
     }
     
-    public Map<String, Object> prepareData(Map<String, Object> data) throws Exception{
+    public String prepareData(Map<String, Object> data) throws Exception{
         data.put("UserName", username);
         data.put("Password", password);
-        post(data);
+        data.put("ExtData", "");
+        
+        // Construct ExtData
+        String next = "";
+        for(Map.Entry<String,Object> param : data.entrySet()){
+            if(!inArray(String.valueOf(param.getKey()), whitelist)){
+                 next += "<"+param.getKey()+">"+param.getValue()+"</"+param.getKey()+">";               
+                 data.put("ExtData", next); 
+                 //data.remove(param.getKey());   //Tira error al eliminar valor 
+            }
+        }
          
-        return data;
+        // fix amounts
+        for(Map.Entry<String,Object> param : data.entrySet()){
+            if(!inArray(String.valueOf(param.getKey()), amountFields)){
+                 
+            }
+        }
+        
+        // set defaults fields
+        for(String w: whitelist){
+            if(data.get(w)==null){
+                data.put(w, "");
+            }  
+        }
+        System.out.println(data);
+        
+         
+        return post(data);
     }
-    public void post(Map<String, Object> data) throws Exception{
+    public String post(Map<String, Object> data) throws Exception{
        
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : data.entrySet()) {
@@ -64,9 +90,18 @@ public class RisePay {
        String content = String.valueOf(postData);
        Post post = Http.post(url, content).header("Content-Type", "application/x-www-form-urlencoded");
    
-        System.out.println(post.text());
 
+        return post.text();
     }
+    
+  public boolean inArray(String needle, String[] haystack) {    
+    for (int i = 0; i < haystack.length; i++) {
+        if (haystack[i] == needle) {
+            return true;
+        } 
+    } 
+    return false;
+        } 
 
     
 }
