@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.javalite.http.Http;
 import org.javalite.http.Post;
+import org.json.*;
 import org.json.JSONObject;
 import org.json.XML;
 
@@ -54,6 +55,15 @@ public class RisePay {
         data.put("UserName", username);
         data.put("Password", password);
         data.put("ExtData", "");
+                 
+        // fix amounts
+        double n ;
+        for(Map.Entry<String,Object> param : data.entrySet()){
+            if(inArray(String.valueOf(param.getKey()), amountFields)){
+                n = parseAmount((int)param.getValue());
+                 data.put(param.getKey(), n); 
+            }
+        }
         
         // Construct ExtData
         String next = "";
@@ -63,16 +73,6 @@ public class RisePay {
                  data.put("ExtData", next); 
                  System.out.println(param.getKey());
                  //data.remove(param.getKey());//Tira error al eliminar valor 
-            }
-        }
-         
-        // fix amounts
-        int n = 0;
-        for(Map.Entry<String,Object> param : data.entrySet()){
-            if(inArray(String.valueOf(param.getKey()), amountFields)){
-                n = (int)(double)parseAmount((int) param.getValue() );
-                System.out.println("n:" + n);
-                 data.put(param.getKey(), n); 
             }
         }
         
@@ -99,10 +99,22 @@ public class RisePay {
         
        String content = String.valueOf(postData);
        Post post = Http.post(url, content).header("Content-Type", "application/x-www-form-urlencoded");
-   
+       
         
-        return XMLtoJSON(post.text());
+        return parsinJson(XMLtoJSON(post.text()));
     }
+    
+    
+    
+  private String parsinJson(String obj){
+     
+      System.out.println(obj);
+      
+     
+      
+      
+      return obj;
+  }  
     
   private boolean inArray(String needle, String[] haystack) {    
     for (int i = 0; i < haystack.length; i++) {
@@ -124,7 +136,7 @@ private double parseAmount(int amount){
       BigDecimal big = new BigDecimal(val);
       big = big.setScale(2, RoundingMode.HALF_UP);
       Double amt = Double.parseDouble(big.toString());
-      System.out.println(amt);
+     
     return amt;
 }
     

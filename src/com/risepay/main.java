@@ -29,11 +29,12 @@ public class main {
         data.put("ExpDate", "1214");
         data.put("Amount", 10);
         data.put("CVNum", "678");
+        data.put("TipAmt", 1);
         data.put("Customer", "JR");
         
         //System.out.println(risepay.auth(data));
         
-        risepay.auth(data);
+        System.out.println(risepay.auth(data));
         
          
         
