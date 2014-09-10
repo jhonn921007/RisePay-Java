@@ -100,21 +100,12 @@ public class RisePay {
        String content = String.valueOf(postData);
        Post post = Http.post(url, content).header("Content-Type", "application/x-www-form-urlencoded");
        
+        convertResponse(post.text());
         
-        return parsinJson(XMLtoJSON(post.text()));
+        return post.text();
     }
     
     
-    
-  private String parsinJson(String obj){
-     
-      System.out.println(obj);
-      
-     
-      
-      
-      return obj;
-  }  
     
   private boolean inArray(String needle, String[] haystack) {    
     for (int i = 0; i < haystack.length; i++) {
@@ -125,10 +116,27 @@ public class RisePay {
     return false;
         } 
   
-private String XMLtoJSON(String xml) {
-    JSONObject jsonObj = XML.toJSONObject(xml);
-    String json = jsonObj.toString();
-    return json;
+public void  convertResponse(String xml) {
+   JSONObject json = XML.toJSONObject(xml);
+   
+   //creating array HashMap
+   // Cleanup array
+   Map<String, Object> data = new HashMap<String, Object>();   
+   JSONObject j = new JSONObject();
+   j = json.getJSONObject("Response");
+   
+   for (String fieldName : j.keySet())
+			{
+                                data.put(fieldName, j.get(fieldName));                                
+			}
+   
+   // Convert ExtData
+   // Split plain data and XML into $matches array
+   String extData = (String)data.get("ExtData");
+   System.out.println(extData);
+    
+ 
+   
 }
 
 private double parseAmount(int amount){

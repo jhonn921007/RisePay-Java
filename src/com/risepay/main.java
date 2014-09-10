@@ -34,7 +34,8 @@ public class main {
         
         //System.out.println(risepay.auth(data));
         
-        System.out.println(risepay.auth(data));
+        risepay.auth(data);
+        
         
          
         
