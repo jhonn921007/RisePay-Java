@@ -49,101 +49,101 @@ Functional API:
   ```
 	
 Object API:
-	```java	
-        Map<String, Object> data = new HashMap<String, Object>();
+  ```java	
+  Map<String, Object> data = new HashMap<String, Object>();
         
-        data.put("NameOnCard", "Jhonn");
-        data.put("CardNum", "5149612222222229");
-        data.put("ExpDate", "1214");
-        data.put("Amount", 10);
-        data.put("CVNum", "678");
-        data.put("TipAmt", 1);
-        data.put("Customer", "JR");
+  data.put("NameOnCard", "Jhonn");
+  data.put("CardNum", "5149612222222229");
+  data.put("ExpDate", "1214");
+  data.put("Amount", 10);
+  data.put("CVNum", "678");
+  data.put("TipAmt", 1);
+  data.put("Customer", "JR");
         
-        System.out.println(risepay.sale(data));    
-        .......
-        ```	
+  System.out.println(risepay.sale(data));    
+  .......
+  ```	
         
 ### Authorization Transaction
 To make an authorization using a credit card:
-	```java	
-	Functional API:	
 	
-        RisePay risepay = new RisePay("gatewayApiUser","userPassword");
+	Functional API:	
+  ```java	
+  RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
-        Map<String, Object> data = new HashMap<String, Object>();
+  Map<String, Object> data = new HashMap<String, Object>();
         
-        data.put("NameOnCard", "Jhonn");
-        data.put("CardNum", "5149612222222229");
-        data.put("ExpDate", "1214");
-        data.put("Amount", 10);
-        data.put("CVNum", "678");
-        data.put("TipAmt", 1);
-        data.put("Customer", "JR");
+  data.put("NameOnCard", "Jhonn");
+  data.put("CardNum", "5149612222222229");
+  data.put("ExpDate", "1214");
+  data.put("Amount", 10);
+  data.put("CVNum", "678");
+  data.put("TipAmt", 1);
+  data.put("Customer", "JR");
         
-        System.out.println(risepay.auth(data)); 	
-	```
+  System.out.println(risepay.auth(data)); 	
+  ```
 ### Void Transaction
 
 To void a transaction:
-	```java	
-	Functional API:	
+  ```java	
+  Functional API:	
 	
-        RisePay risepay = new RisePay("gatewayApiUser","userPassword");
+  RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
-        Map<String, Object> data = new HashMap<String, Object>();
+  Map<String, Object> data = new HashMap<String, Object>();
         
-        data.put("NameOnCard", "Jhonn");
-        data.put("CardNum", "5149612222222229");
-        data.put("ExpDate", "1214");
-        data.put("Amount", 10);
-        data.put("CVNum", "678");
-        data.put("TipAmt", 1);
-        data.put("Customer", "JR");
+  data.put("NameOnCard", "Jhonn");
+  data.put("CardNum", "5149612222222229");
+  data.put("ExpDate", "1214");
+  data.put("Amount", 10);
+  data.put("CVNum", "678");
+  data.put("TipAmt", 1);
+  data.put("Customer", "JR");
         
-        System.out.println(risepay.Void(data)); 
-	```
+  System.out.println(risepay.Void(data)); 
+  ```
 ### Capture Transaction
 
 To capture a previously Authorized transaction:
-	```java	
+  	
 	Functional API:	
-	
-        RisePay risepay = new RisePay("gatewayApiUser","userPassword");
+  ```java	
+  RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
-        Map<String, Object> data = new HashMap<String, Object>();
+  Map<String, Object> data = new HashMap<String, Object>();
         
-        data.put("NameOnCard", "Jhonn");
-        data.put("CardNum", "5149612222222229");
-        data.put("ExpDate", "1214");
-        data.put("Amount", 10);
-        data.put("CVNum", "678");
-        data.put("TipAmt", 1);
-        data.put("Customer", "JR");
+  data.put("NameOnCard", "Jhonn");
+  data.put("CardNum", "5149612222222229");
+  data.put("ExpDate", "1214");
+  data.put("Amount", 10);
+  data.put("CVNum", "678");
+  data.put("TipAmt", 1);
+  data.put("Customer", "JR");
         
-        System.out.println(risepay.capture(data)); 
-	```
+  System.out.println(risepay.capture(data)); 
+  ```
 
 ### Return Transaction
 
 To return a payment for already batched transaction:
 	
 Functional API:	
-	```java	
-        RisePay risepay = new RisePay("gatewayApiUser","userPassword");
+  ```java	
+  RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
-        Map<String, Object> data = new HashMap<String, Object>();
+  Map<String, Object> data = new HashMap<String, Object>();
         
-        data.put("NameOnCard", "Jhonn");
-        data.put("CardNum", "5149612222222229");
-        data.put("ExpDate", "1214");
-        data.put("Amount", 10);
-        data.put("CVNum", "678");
-        data.put("TipAmt", 1);
-        data.put("Customer", "JR");
+  data.put("NameOnCard", "Jhonn");
+  data.put("CardNum", "5149612222222229");
+  data.put("ExpDate", "1214");
+  data.put("Amount", 10);
+  data.put("CVNum", "678");
+  data.put("TipAmt", 1);
+  data.put("Customer", "JR");
         
-        System.out.println(risepay.Return(data)); 
-	```
+  System.out.println(risepay.Return(data)); 
+  ```
 
 To see complete list of RisePay API variables, review our <a href='https://gateway1.risepay.com/vt/nethelp/Documents/processcreditcard.htm'>online documentation</a>. </br> You can request developer credentials from our <a href='http://sales.risepay.com/rise-dev-access.html'>Dev Portal</a>.  If you would like to certify your application, then submit a <a href='http://sales.risepay.com/rise-cert-lab-access.html'>Cert Lab request</a>.	
 
