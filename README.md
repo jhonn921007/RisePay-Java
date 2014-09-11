@@ -32,22 +32,21 @@ create a new instance of the class.
 To make a purchase using a credit card:
 
 Functional API:	
-
-	```java	
-        RisePay risepay = new RisePay("gatewayApiUser","userPassword");
+  ```java	
+  RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
-        Map<String, Object> data = new HashMap<String, Object>();
+  Map<String, Object> data = new HashMap<String, Object>();
         
-        data.put("NameOnCard", "Jhonn");
-        data.put("CardNum", "5149612222222229");
-        data.put("ExpDate", "1214");
-        data.put("Amount", 10);
-        data.put("CVNum", "678");
-        data.put("TipAmt", 1);
-        data.put("Customer", "JR");
+  data.put("NameOnCard", "Jhonn");
+  data.put("CardNum", "5149612222222229");
+  data.put("ExpDate", "1214");
+  data.put("Amount", 10);
+  data.put("CVNum", "678");
+  data.put("TipAmt", 1);
+  data.put("Customer", "JR");
         
-        System.out.println(risepay.sale(data)); 	
-	```
+  System.out.println(risepay.sale(data)); 	
+  ```
 	
 Object API:
 	```java	
