@@ -32,7 +32,7 @@ create a new instance of the class.
 To make a purchase using a credit card:
 
 Functional API:	
-	```java
+	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
         Map<String, Object> data = new HashMap<String, Object>();
@@ -48,7 +48,7 @@ Functional API:
         System.out.println(risepay.sale(data)); 	
 
 Object API:
-	```java
+	
         Map<String, Object> data = new HashMap<String, Object>();
         
         data.put("NameOnCard", "Jhonn");
@@ -64,7 +64,7 @@ Object API:
         
 ### Authorization Transaction
 To make an authorization using a credit card:
-	```java
+	
 	Functional API:	
 	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
@@ -84,7 +84,7 @@ To make an authorization using a credit card:
 ### Void Transaction
 
 To void a transaction:
-	```java
+	
 	Functional API:	
 	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
@@ -104,7 +104,7 @@ To void a transaction:
 ### Capture Transaction
 
 To capture a previously Authorized transaction:
-	```java	
+	
 	Functional API:	
 	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
@@ -127,7 +127,7 @@ To capture a previously Authorized transaction:
 To return a payment for already batched transaction:
 	
 Functional API:	
-	```java	
+	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
         Map<String, Object> data = new HashMap<String, Object>();
