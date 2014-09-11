@@ -32,6 +32,7 @@ create a new instance of the class.
 To make a purchase using a credit card:
 
 Functional API:	
+
 	```java	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
