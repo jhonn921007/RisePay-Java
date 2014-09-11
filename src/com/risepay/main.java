@@ -32,14 +32,8 @@ public class main {
         data.put("TipAmt", 1);
         data.put("Customer", "JR");
         
-        //System.out.println(risepay.auth(data));
-        
-        risepay.auth(data);
-        
-        
-         
-        
-        
+        System.out.println(risepay.auth(data));         
+              
     }
     
 }

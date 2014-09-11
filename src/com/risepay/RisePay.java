@@ -8,6 +8,8 @@ import java.util.*;
  
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.javalite.http.Http;
 import org.javalite.http.Post;
 import org.json.*;
@@ -41,17 +43,34 @@ public class RisePay {
         this.url = url;
     }
     
-    public String auth(Map<String, Object> data) throws Exception{
+    public Map<String, Object> auth(Map<String, Object> data) throws Exception{
         data.put("TransType", "Auth");
         return prepareData(data);
     }
     
-    public String sale(Map<String, Object> data)  throws Exception{
+    public Map<String, Object> sale(Map<String, Object> data)  throws Exception{
         data.put("TransType", "Sale");
         return prepareData(data);
     }
     
-    private String prepareData(Map<String, Object> data) throws Exception{
+    //void lowercase keyword reserved
+    public Map<String, Object> Void(Map<String, Object> data)  throws Exception{
+        data.put("TransType", "Void");
+        return prepareData(data);
+    }
+    
+    //return lowercase keyword reserved
+    public Map<String, Object> Return(Map<String, Object> data)  throws Exception{
+        data.put("TransType", "Return");
+        return prepareData(data);
+    }
+    
+    public Map<String, Object> capture(Map<String, Object> data)  throws Exception{
+        data.put("TransType", "Force");
+        return prepareData(data);
+    }
+    
+    private Map<String, Object> prepareData(Map<String, Object> data) throws Exception{
         data.put("UserName", username);
         data.put("Password", password);
         data.put("ExtData", "");
@@ -71,23 +90,26 @@ public class RisePay {
             if(!inArray(String.valueOf(param.getKey()), whitelist)){
                  next += "<"+param.getKey()+">"+param.getValue()+"</"+param.getKey()+">";               
                  data.put("ExtData", next); 
-                 System.out.println(param.getKey());
-                 //data.remove(param.getKey());//Tira error al eliminar valor 
             }
         }
-        
+            //iterator HashMap remove data values !whitelist
+          for(Iterator<Map.Entry<String,Object>>it=data.entrySet().iterator();it.hasNext();){
+                Map.Entry<String, Object> entry = it.next();
+                if(!inArray(String.valueOf(entry.getKey()), whitelist)){
+                     it.remove();
+                }
+            }
+    
         // set defaults fields
         for(String w: whitelist){
             if(data.get(w)==null){
                 data.put(w, "");
             }  
         }
-        System.out.println(data);
-        
          
         return post(data);
     }
-    private String post(Map<String, Object> data) throws Exception{
+    private Map<String, Object> post(Map<String, Object> data) throws Exception{
        
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : data.entrySet()) {
@@ -99,24 +121,11 @@ public class RisePay {
         
        String content = String.valueOf(postData);
        Post post = Http.post(url, content).header("Content-Type", "application/x-www-form-urlencoded");
-       
-        convertResponse(post.text());
-        
-        return post.text();
+
+        return convertResponse(post.text());
     }
-    
-    
-    
-  private boolean inArray(String needle, String[] haystack) {    
-    for (int i = 0; i < haystack.length; i++) {
-        if (haystack[i] == needle) {
-            return true;
-        } 
-    } 
-    return false;
-        } 
   
-public void  convertResponse(String xml) {
+private Map<String, Object>  convertResponse(String xml) {
    JSONObject json = XML.toJSONObject(xml);
    
    //creating array HashMap
@@ -133,10 +142,45 @@ public void  convertResponse(String xml) {
    // Convert ExtData
    // Split plain data and XML into $matches array
    String extData = (String)data.get("ExtData");
-   System.out.println(extData);
+   String match = "([,=0-9a-zA-Z]*)(\\<.*\\>)"; 
+   String[] s = pregMatch(extData, match);
+   String str = s[1];
+   for(String f : str.split(",")){
+        String[] a = f.split("=");
+        data.put(a[0], a[1]);
+   }
+
+   // Process XML part
+   JSONObject xmldata = XML.toJSONObject(s[2]);
+   for (String fieldName : xmldata.keySet())
+			{
+                                data.put(fieldName, xmldata.get(fieldName));                                
+			}
+
+   String[] jsonlist = {"xmlns:xsd", "xmlns:xsi", "xmlns", "ExtData"};
+   for(String d : jsonlist){
+       data.remove(d);
+   }
     
- 
+    return data;
+}
+
+private String[] pregMatch(String str, String match) {
    
+    Pattern pattern = Pattern.compile(match);
+    Matcher matcher = pattern.matcher(str);
+    String[] ma = new String[3];
+    
+    if (matcher.find()) {
+        ma[0] = matcher.group(0); 
+        ma[1] = matcher.group(1);
+        ma[2] = matcher.group(2);
+        
+    } else {
+        System.out.println("Match not found");
+    }
+    
+    return ma;
 }
 
 private double parseAmount(int amount){
@@ -147,5 +191,17 @@ private double parseAmount(int amount){
      
     return amt;
 }
+
+
+    
+  private boolean inArray(String needle, String[] haystack) {    
+    for (int i = 0; i < haystack.length; i++) {
+        if (haystack[i] == needle) {
+            return true;
+        } 
+    } 
+    return false;
+        } 
+  
     
 }
