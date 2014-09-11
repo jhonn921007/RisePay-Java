@@ -25,14 +25,14 @@ create a new instance of the class.
 
   ```java	
   RisePay risepay = new RisePay("gatewayApiUser","userPassword");
-
+  ```
 
 
 ### Sale Transaction
 To make a purchase using a credit card:
 
 Functional API:	
-	
+	```java	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
         Map<String, Object> data = new HashMap<String, Object>();
@@ -46,9 +46,9 @@ Functional API:
         data.put("Customer", "JR");
         
         System.out.println(risepay.sale(data)); 	
-
+	```
 Object API:
-	
+	```java	
         Map<String, Object> data = new HashMap<String, Object>();
         
         data.put("NameOnCard", "Jhonn");
@@ -61,10 +61,11 @@ Object API:
         
         System.out.println(risepay.sale(data));    
         .......
+        ```	
         
 ### Authorization Transaction
 To make an authorization using a credit card:
-	
+	```java	
 	Functional API:	
 	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
@@ -80,11 +81,11 @@ To make an authorization using a credit card:
         data.put("Customer", "JR");
         
         System.out.println(risepay.auth(data)); 	
-
+	```
 ### Void Transaction
 
 To void a transaction:
-	
+	```java	
 	Functional API:	
 	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
@@ -100,11 +101,11 @@ To void a transaction:
         data.put("Customer", "JR");
         
         System.out.println(risepay.Void(data)); 
-
+	```
 ### Capture Transaction
 
 To capture a previously Authorized transaction:
-	
+	```java	
 	Functional API:	
 	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
@@ -120,14 +121,14 @@ To capture a previously Authorized transaction:
         data.put("Customer", "JR");
         
         System.out.println(risepay.capture(data)); 
-
+	```
 
 ### Return Transaction
 
 To return a payment for already batched transaction:
 	
 Functional API:	
-	
+	```java	
         RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
         Map<String, Object> data = new HashMap<String, Object>();
@@ -141,7 +142,7 @@ Functional API:
         data.put("Customer", "JR");
         
         System.out.println(risepay.Return(data)); 
-
+	```
 
 To see complete list of RisePay API variables, review our <a href='https://gateway1.risepay.com/vt/nethelp/Documents/processcreditcard.htm'>online documentation</a>. </br> You can request developer credentials from our <a href='http://sales.risepay.com/rise-dev-access.html'>Dev Portal</a>.  If you would like to certify your application, then submit a <a href='http://sales.risepay.com/rise-cert-lab-access.html'>Cert Lab request</a>.	
 
