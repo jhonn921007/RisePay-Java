@@ -47,6 +47,7 @@ Functional API:
         
         System.out.println(risepay.sale(data)); 	
 	```
+	
 Object API:
 	```java	
         Map<String, Object> data = new HashMap<String, Object>();
