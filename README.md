@@ -67,7 +67,7 @@ Object API:
 ### Authorization Transaction
 To make an authorization using a credit card:
 	
-	Functional API:	
+Functional API:	
   ```java	
   RisePay risepay = new RisePay("gatewayApiUser","userPassword");
         
