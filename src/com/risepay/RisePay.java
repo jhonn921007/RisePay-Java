@@ -32,6 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.javalite.http.Http;
 import org.javalite.http.Post;
+
 import org.json.*;
 import org.json.JSONObject;
 import org.json.XML;
@@ -211,6 +212,11 @@ public class RisePay {
         for(String d : jsonlist){
             data.remove(d);
         }
+        if(data.get("Message")==null)
+            data.put("Message", "");
+        
+        if(data.get("RespMSG")!=null)
+        data.put("Message", data.get("Message") +" "+ data.get("RespMSG")); 
         
         return data;
     }

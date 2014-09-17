@@ -36,7 +36,7 @@ public class main {
             System.out.println("Approved. Transaction ID = " + resp.get("PNRef"));
             System.out.println("AuthCode = " + resp.get("AuthCode"));
         }else{
-            System.out.println("Declined: "+ resp.get("RespMSG"));
+            System.out.println("Declined: "+ resp.get("Message"));
         }
         
         
